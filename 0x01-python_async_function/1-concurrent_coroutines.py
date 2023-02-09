@@ -9,9 +9,9 @@ wait_random = __import__('0-basic_async_syntax').wait_random
 
 
 async def wait_n(n: int, max_delay: int) -> List[float]:
-    '''Executes wait_random n times with max_delay
-    '''
-    wait_times = await asyncio.gather(
-            *tuple(map(Lambda _: wait_random(max_delay), range(n)))
-    )
-    return sorted(wait_times)
+    """ Execute multiple coroutines """
+    results = []
+    delays = [wait_random(max_delay) for i in range(n)]
+    for res in asyncio.as_completed(delays):
+        results.append(await res)
+    return results
