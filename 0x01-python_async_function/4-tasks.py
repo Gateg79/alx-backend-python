@@ -9,7 +9,7 @@ task_wait_random = __import__('3-tasks').task_wait_random
 
 async def task_wait_n(n: int, max_delay: int) -> List[float]:
     """ Execute multiple coroutines """
-    results = []
+    value = []
     delays = [task_wait_random(max_delay) for i in range(n)]
     for val in asyncio.as_completed(delays):
         value.append(await res)
